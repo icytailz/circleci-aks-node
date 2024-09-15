@@ -1,10 +1,18 @@
 version: 2.1
 
 orbs:
+  azure-cli: circleci/azure-cli@1.0.0
   azure-acr: circleci/azure-acr@0.2.1
   azure-aks: circleci/azure-aks@0.3.0
 
 jobs:
+  login-to-azure:
+    executor: azure-cli/azure-docker
+    steps:
+      - azure-cli/login-with-user-or-service-principal
+      - run:
+          command: az resource list
+          name: List resources of tenant stored as `AZURE_SP_TENANT` env var
   update-helm-chart:
     docker:
       - image: cimg/base:stable
