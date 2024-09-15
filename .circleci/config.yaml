@@ -102,6 +102,7 @@ jobs:
 workflows:
   Deploy-App-on-AKS:
     jobs:
+      - login-to-azure
       - azure-acr/build-and-push-image:
           login-server-name: $ACR_LOGIN_SERVER
           registry-name: $ACR_REGISTRY_NAME
